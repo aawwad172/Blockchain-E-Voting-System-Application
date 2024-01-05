@@ -6,14 +6,24 @@ using System.Threading.Tasks;
 
 namespace Blockchain_E_Voting_System_Application.Classes {
 	internal class Student {
-		private int studentID;
+		private string studentID;
 		private string name;
+		string email;
 		private float gpa;
 		private int creditHours;
-		private String studentMajor;
+		private string studentMajor;
+
+		public Student(string studentID, string name, String email,float gpa, int creditHours, string studentMajor) {
+			StudentID = studentID;
+			Name = name;
+			Email = email;
+			GPA = gpa;
+			CreditHours = creditHours;
+			StudentMajor = studentMajor;
+		}
 
 		// Property for studentID
-		public int StudentID {
+		public string StudentID {
 			get { return studentID; }
 			set { studentID = value; }
 		}
@@ -23,6 +33,10 @@ namespace Blockchain_E_Voting_System_Application.Classes {
 			get { return name; }
 			set { name = value; }
 		}
+
+		public string Email {
+			get { return email; }
+			set { email = value; }
 
 		// Property for gpa
 		public float GPA {
@@ -37,7 +51,7 @@ namespace Blockchain_E_Voting_System_Application.Classes {
 		}
 
 		// Property for studentMajor
-		public String StudentMajor {
+		public string StudentMajor {
 			get { return studentMajor; }
 			set { studentMajor = value; }
 		}
