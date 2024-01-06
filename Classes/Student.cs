@@ -55,5 +55,14 @@ namespace Blockchain_E_Voting_System_Application.Classes {
 			get { return studentMajor; }
 			set { studentMajor = value; }
 		}
+
+		public bool verifyIdentity(string studentID) {
+			bool validInformation = false;
+			/*
+			 * Here is the rest of the code if the University System had an API
+			 * so we can use it to check the details of the student.
+			 */
+			return validInformation;
+		}
 	}
 }
