@@ -37,6 +37,7 @@ namespace Blockchain_E_Voting_System_Application.Classes {
 		public string Email {
 			get { return email; }
 			set { email = value; }
+		}
 
 		// Property for gpa
 		public float GPA {
