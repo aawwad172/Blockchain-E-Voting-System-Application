@@ -8,18 +8,20 @@ namespace Blockchain_E_Voting_System_Application.Classes {
 		private int _studentID;
 		private string _name;
 		private string _email;
+		private string _password;
 		private float _gpa;
 		private int _creditHours;
 		private string _studentMajor;
 
 		// Constructor
-		public Student(string name, string email, float gpa, int creditHours, string studentMajor) {
+		public Student(string name, string email, string password, float gpa, int creditHours, string studentMajor) {
 			this.StudentID = nextStudentID++;
 			this.Name = name;
 			this.Email = email;
 			this.GPA = gpa;
 			this.CreditHours = creditHours;
 			this.StudentMajor = studentMajor;
+			this._password = password;
 		}
 
 		// Setters and Getters
@@ -38,6 +40,11 @@ namespace Blockchain_E_Voting_System_Application.Classes {
 		public string Email {
 			get { return _email; }
 			set { _email = value; }
+		}
+
+		private string Password {
+			get { return _password; }
+			set { _password = value; }
 		}
 
 		public float GPA {

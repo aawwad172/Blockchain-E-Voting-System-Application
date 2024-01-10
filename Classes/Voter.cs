@@ -9,8 +9,8 @@ namespace Blockchain_E_Voting_System_Application.Classes {
 
 
 		// Constructor
-		public Voter(string name, string email, float gpa, int creditHours, string studentMajor)
-			: base(name, email, gpa, creditHours, studentMajor)
+		public Voter(string name, string email, string password, float gpa, int creditHours, string studentMajor)
+			: base(name, email, password, gpa, creditHours, studentMajor)
 		{
 			_voterID = nextVoterID++;
 		}

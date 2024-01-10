@@ -10,13 +10,11 @@ namespace Blockchain_E_Voting_System_Application.Classes {
 
 		private int _adminID;
 		private string _name;
-		private int _accessLevel;
 
 		// Constructor
-		public Admin(string name, int accessLevel) {
+		public Admin(string name) {
 			this.AdminID = nextAdminID++;
 			this.Name = name;
-			this.AccessLevel = accessLevel;
 		}
 
 		// Getters and Setters
@@ -30,25 +28,5 @@ namespace Blockchain_E_Voting_System_Application.Classes {
 			set { _name = value; }
 		}
 
-		public int AccessLevel {
-			get { return _accessLevel; }
-			set { _accessLevel = value; }
-		}
-
-
-		// Method to authenticate the administrator
-		public bool Authenticate(string adminCredentials) {
-			// Placeholder logic for authentication
-			// In a real-world scenario, this method would check the provided credentials
-			// against a stored credential database or authentication service
-			return true; // Assuming successful authentication for demonstration
-		}
-
-		// Method to manage different aspects of an election
-		public void ManageElection(int electionID, string operation) {
-			// Implementation for managing elections
-			// This method could involve operations like starting/stopping an election,
-			// modifying election details, etc., based on the 'operation' parameter
-		}
 	}
 }
