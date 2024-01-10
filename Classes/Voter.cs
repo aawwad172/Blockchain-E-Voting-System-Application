@@ -1,15 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Blockchain_E_Voting_System_Application.Classes {
 	internal class Voter : Student {
+		private static int nextVoterID = 1;
 
-		public Voter(string studentID, string name, string email, float gpa, int creditHours, string studentMajor)
-			: base(studentID, name, email, gpa, creditHours, studentMajor) { // Call the base class constructor
+		// Attributes
+		private int _voterID;
 
+
+		// Constructor
+		public Voter(string name, string email, float gpa, int creditHours, string studentMajor)
+			: base(name, email, gpa, creditHours, studentMajor)
+		{
+			_voterID = nextVoterID++;
 		}
+
+		// Setters and Getters
+		public int VoterID {
+			private set { _voterID = value; }
+			get { return _voterID; }
+		}
+
 	}
 }
