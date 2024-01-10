@@ -65,9 +65,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Admin.cs" />
+    <Compile Include="Classes\Block.cs" />
+    <Compile Include="Classes\Blockchain.cs" />
     <Compile Include="Classes\Candidate.cs" />
     <Compile Include="Classes\Election.cs" />
     <Compile Include="Classes\Student.cs" />
+    <Compile Include="Classes\Vote.cs" />
     <Compile Include="Classes\Voter.cs" />
     <Compile Include="Elections.cs">
       <SubType>Form</SubType>

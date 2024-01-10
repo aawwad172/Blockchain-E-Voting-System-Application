@@ -1,36 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Blockchain_E_Voting_System_Application.Classes {
 	internal class Election {
-		public string electionID { get; set; }
-		public DateTime startDate { get; set; }
-		public DateTime endDate { get; set; }
-		public Dictionary<string, Candidate> candidates;
+		private static int nextElectionID = 1;
+
+		// Attributes
+		private int _electionID;
+		public DateTime _startDate { get; set; }
+		public DateTime _endDate { get; set; }
+		public Dictionary<int, Candidate> Candidates { get; private set; }
 
 		// Constructor
-		public Election(string electionID, DateTime startDate, DateTime endDate) {
-			this.electionID = electionID;
-			this.startDate = startDate;
-			this.endDate = endDate;
-			candidates = new Dictionary<string, Candidate>();
+		public Election(DateTime startDate, DateTime endDate) {
+			this.ElectionID = nextElectionID++;
+			this._startDate = startDate;
+			this._endDate = endDate;
+			Candidates = new Dictionary<int, Candidate>();
 		}
 
-		// Method to add a candidate to the election
-		public void addCandidate(Candidate candidate) {
-			candidates.Add(candidate.candidateID, candidate);
+		// Setters and Getters
+		public int ElectionID {
+			get { return _electionID; }
+			private set { _electionID = value; }
+		}
+
+		// Methods
+		public void AddCandidate(Candidate candidate) {
+			Candidates.Add(candidate.CandidateID, candidate);
 		}
 
 		// Method to retrieve information about a candidate
-		public Candidate getCandidateInfo(string candidateID) {
-			if (candidates.ContainsKey(candidateID)) {
+		public Candidate GetCandidateInfo(int candidateID) {
+			if (Candidates.ContainsKey(candidateID)) {
 				Console.WriteLine("Candidate Found Successfully!");
-				return candidates[candidateID];
+				return Candidates[candidateID];
 			} else {
-				Console.WriteLine("Candidate is Not Exist!");
+				Console.WriteLine("Candidate Not Exist!");
 				return null;
 			}
 		}
