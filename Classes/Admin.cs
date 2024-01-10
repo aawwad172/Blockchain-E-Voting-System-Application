@@ -27,6 +27,5 @@ namespace Blockchain_E_Voting_System_Application.Classes {
 			get { return _name; }
 			set { _name = value; }
 		}
-
 	}
 }

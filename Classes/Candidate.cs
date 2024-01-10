@@ -13,8 +13,8 @@ namespace Blockchain_E_Voting_System_Application.Classes {
 		private int _totalVotes;
 
 		// Constructor, utilizing base class constructor for Student attributes
-		public Candidate(string name, string email, float gpa, int creditHours, string major)
-			: base(name, email, gpa, creditHours, major) {
+		public Candidate(string name, string email, string password, float gpa, int creditHours, string major)
+			: base(name, email, password, gpa, creditHours, major) {
 			this.CandidateID = nextCandidateID++;
 			this.TotalVotes = 0;
 		}

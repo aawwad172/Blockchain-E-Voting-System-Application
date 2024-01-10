@@ -22,7 +22,7 @@ namespace Blockchain_E_Voting_System_Application {
             DateTime endDate = DateTime.Now.AddDays(1); // Example end date: one day from now
 
             // Create an instance of Election
-            Election currentElection = new Election(electionId, startDate, endDate);
+            Election currentElection = new Election(startDate, endDate);
             
 
 
