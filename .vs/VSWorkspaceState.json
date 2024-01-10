@@ -3,6 +3,10 @@
     "",
     "\\Classes"
   ],
-  "SelectedNode": "\\Classes\\Admin.cs",
+<<<<<<< HEAD
+  "SelectedNode": "\\LoginForm.cs",
+=======
+  "SelectedNode": "\\Blockchain E-Voting System Application.sln",
+>>>>>>> master
   "PreviewInSolutionExplorer": false
 }
