@@ -28,3 +28,5 @@ E:\E-voting Syatem\bin\Debug\EntityFramework.xml
 E:\E-voting Syatem\bin\Debug\EntityFramework.SqlServer.xml
 E:\E-voting Syatem\bin\Debug\System.Data.SQLite.xml
 E:\E-voting Syatem\obj\Debug\Blockchain E-Voting System Application.csproj.CopyComplete
+E:\E-voting Syatem\obj\Debug\Blockchain_E_Voting_System_Application.MainPage.resources
+E:\E-voting Syatem\obj\Debug\Blockchain_E_Voting_System_Application.Elections.resources

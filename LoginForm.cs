@@ -71,7 +71,7 @@ namespace Blockchain_E_Voting_System_Application {
                         using (SQLiteDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.Read())
-                            {
+                            {    
                                 MainPage mainPage = new MainPage();
                                 mainPage.Show();
                             }
