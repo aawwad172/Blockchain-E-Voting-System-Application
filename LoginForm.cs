@@ -7,16 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.OleDb; // For the Microsoft Access Database!
+using System.Data.SQLite;
 
 namespace Blockchain_E_Voting_System_Application {
 	public partial class LoginForm : Form {
 
-		OleDbConnection conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0,Data Source=Users_db.mdb");
-		OleDbCommand cmd = new OleDbCommand();
-		OleDbDataAdapter adapter = new OleDbDataAdapter();
+        SQLiteConnection conn = new SQLiteConnection("Data Source=login.db;Version=3;");
+        SQLiteCommand cmd = new SQLiteCommand();
 
-		public LoginForm() {
+
+        public LoginForm() {
 			InitializeComponent();
 
 		}
@@ -44,42 +44,50 @@ namespace Blockchain_E_Voting_System_Application {
 		}
 
 		private void button1_Click_1(object sender, EventArgs e) {
-			string username = txtUserName.Text;
-			string password = txtPassword.Text;
+            string username = txtUserName.Text;
+            string password = txtPassword.Text;
 
-			if ("" == username || "" == password) {
-				MessageBox.Show("Username or password are empty!", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
+            if ("" == username || "" == password)
+            {
+                MessageBox.Show("Username or password are empty!", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-			string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Users_db.mdb";
+            string connectionString = "Data Source=login.db;Version=3;";
 
-			try {
-				conn.Open();
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                {
+                    conn.Open();
 
-				// SQL query to check if a user with the given username and password exists
-				string query = "SELECT COUNT(1) FROM Users WHERE Username = @username AND Password = @password";
+                    string query = "SELECT Username, Password FROM Users WHERE Username = @username AND Password = @password";
 
-				// OleDbCommand and Parameters
-				OleDbCommand cmd = new OleDbCommand(query, conn);
-				cmd.Parameters.AddWithValue("@username", username);
-				cmd.Parameters.AddWithValue("@password", password);
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@username", username);
+                        cmd.Parameters.AddWithValue("@password", password);
 
-				// Execute the query and check the result
-				int userExists = (int)cmd.ExecuteScalar();
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                MainPage mainPage = new MainPage();
+                                mainPage.Show();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Invalid username or password.");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
 
-				if (userExists > 0) {
-					Console.WriteLine("Maniak");
-					// User exists, open Form2
-					MainPage mainPage = new MainPage();
-					// MainPage.Show();
-				} else {
-					MessageBox.Show("Invalid username or password.");
-				}
-			} catch (Exception ex) {
-				MessageBox.Show("Error: " + ex.Message);
-			} finally {
-				conn.Close();
-			}
-		}
-	}
+        }
+    }
 }
