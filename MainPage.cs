@@ -17,12 +17,6 @@ namespace Blockchain_E_Voting_System_Application {
 
         private void MainPage_Load(object sender, EventArgs e)
         {
-            string electionId = "Election2024";
-            DateTime startDate = DateTime.Now;
-            DateTime endDate = DateTime.Now.AddDays(1); // Example end date: one day from now
-
-            // Create an instance of Election
-            Election currentElection = new Election(startDate, endDate);
             
 
 
