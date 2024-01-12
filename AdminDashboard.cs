@@ -13,5 +13,9 @@ namespace Blockchain_E_Voting_System_Application {
 		public AdminDashboard() {
 			InitializeComponent();
 		}
+
+		private void AdminDashboard_Load(object sender, EventArgs e) {
+
+		}
 	}
 }
