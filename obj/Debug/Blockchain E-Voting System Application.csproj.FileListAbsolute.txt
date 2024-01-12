@@ -52,3 +52,25 @@ I:\Coding\C#\E-Voting System\Blockchain-E-Voting-System-Application\bin\Debug\En
 I:\Coding\C#\E-Voting System\Blockchain-E-Voting-System-Application\bin\Debug\EntityFramework.SqlServer.xml
 I:\Coding\C#\E-Voting System\Blockchain-E-Voting-System-Application\bin\Debug\System.Data.SQLite.xml
 I:\Coding\C#\E-Voting System\Blockchain-E-Voting-System-Application\obj\Debug\Blockchain E-Voting System Application.csproj.CopyComplete
+E:\E-Voting System\bin\Debug\Blockchain E-Voting System Application.exe.config
+E:\E-Voting System\bin\Debug\Blockchain E-Voting System Application.exe
+E:\E-Voting System\bin\Debug\Blockchain E-Voting System Application.pdb
+E:\E-Voting System\bin\Debug\EntityFramework.dll
+E:\E-Voting System\bin\Debug\EntityFramework.SqlServer.dll
+E:\E-Voting System\bin\Debug\System.Data.SQLite.dll
+E:\E-Voting System\bin\Debug\System.Data.SQLite.EF6.dll
+E:\E-Voting System\bin\Debug\System.Data.SQLite.Linq.dll
+E:\E-Voting System\bin\Debug\EntityFramework.xml
+E:\E-Voting System\bin\Debug\EntityFramework.SqlServer.xml
+E:\E-Voting System\bin\Debug\System.Data.SQLite.xml
+E:\E-Voting System\obj\Debug\Blockchain E-Voting System Application.csproj.AssemblyReference.cache
+E:\E-Voting System\obj\Debug\Blockchain_E_Voting_System_Application.AdminDashboard.resources
+E:\E-Voting System\obj\Debug\Blockchain_E_Voting_System_Application.Elections.resources
+E:\E-Voting System\obj\Debug\Blockchain_E_Voting_System_Application.LoginForm.resources
+E:\E-Voting System\obj\Debug\Blockchain_E_Voting_System_Application.MainPage.resources
+E:\E-Voting System\obj\Debug\Blockchain_E_Voting_System_Application.Properties.Resources.resources
+E:\E-Voting System\obj\Debug\Blockchain E-Voting System Application.csproj.GenerateResource.cache
+E:\E-Voting System\obj\Debug\Blockchain E-Voting System Application.csproj.CoreCompileInputs.cache
+E:\E-Voting System\obj\Debug\Blockchain E-Voting System Application.csproj.CopyComplete
+E:\E-Voting System\obj\Debug\Blockchain E-Voting System Application.exe
+E:\E-Voting System\obj\Debug\Blockchain E-Voting System Application.pdb
