@@ -3,17 +3,15 @@ using System.Collections.Generic;
 
 namespace Blockchain_E_Voting_System_Application.Classes {
 	internal class Election {
-		private static int nextElectionID = 1;
 
 		// Attributes
 		private int _electionID;
-		public DateTime _startDate { get; set; }
-		public DateTime _endDate { get; set; }
+		public DateTime _startDate;
+		public DateTime _endDate;
 		public Dictionary<int, Candidate> Candidates { get; private set; }
 
 		// Constructor
 		public Election(DateTime startDate, DateTime endDate) {
-			this.ElectionID = nextElectionID++;
 			this._startDate = startDate;
 			this._endDate = endDate;
 			Candidates = new Dictionary<int, Candidate>();
@@ -22,8 +20,11 @@ namespace Blockchain_E_Voting_System_Application.Classes {
 		// Setters and Getters
 		public int ElectionID {
 			get { return _electionID; }
-			private set { _electionID = value; }
+			set { _electionID = value; }
 		}
+
+		public DateTime StartDate { get; set; }
+		public DateTime EndDate { get; set; }
 
 		// Methods
 		public void AddCandidate(Candidate candidate) {
@@ -46,4 +47,6 @@ namespace Blockchain_E_Voting_System_Application.Classes {
 			// Implementation to calculate and announce the results
 		}
 	}
+
+
 }
