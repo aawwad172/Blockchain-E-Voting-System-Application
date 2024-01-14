@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Blockchain_E_Voting_System_Application.Classes {
 	internal class Candidate : Student {
-		private static int nextCandidateID = 1;
 
 		// Attributes
 		private int _candidateID;
@@ -15,14 +14,13 @@ namespace Blockchain_E_Voting_System_Application.Classes {
 		// Constructor, utilizing base class constructor for Student attributes
 		public Candidate(string name, string email, string password, float gpa, int creditHours, string major)
 			: base(name, email, password, gpa, creditHours, major) {
-			this.CandidateID = nextCandidateID++;
 			this.TotalVotes = 0;
 		}
 
 		// Setters and Getters
 		public int CandidateID {
 			get { return _candidateID; }
-			private set { _candidateID = value; }
+			set { _candidateID = value; }
 		}
 
 		public int TotalVotes {

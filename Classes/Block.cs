@@ -4,25 +4,18 @@ using System.Text;
 
 namespace Blockchain_E_Voting_System_Application.Classes {
 	internal class Block {
-		private static int nextID = 1;
 
 		// Attributes
 		private int _blockID;
 		private string _previousHash;
 		private Vote _voteRecord;
 		private string _hash;
+		private bool _isGenesisBlock;
 
 		public Block(string previousHash, Vote voteRecord, bool isGenesisBlock = false) {
-			if (isGenesisBlock) {
-				// Set BlockID to 0 for the genesis block
-				BlockID = 0;
-			} else {
-				// For regular blocks, use the next available ID
-				BlockID = nextID++;
-			}
-
 			PreviousHash = previousHash;
 			VoteRecord = voteRecord;
+			IsGenesisBlock = isGenesisBlock;
 			Hash = ComputeHash();
 		}
 
@@ -48,6 +41,11 @@ namespace Blockchain_E_Voting_System_Application.Classes {
 		public string Hash {
 			get { return _hash; }
 			private set { _hash = value; }
+		}
+
+		public bool IsGenesisBlock {
+			set { _isGenesisBlock = value; }
+			get { return _isGenesisBlock; }
 		}
 
 
