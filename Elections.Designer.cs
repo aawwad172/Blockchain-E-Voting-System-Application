@@ -37,6 +37,7 @@
             this.ClientSize = new System.Drawing.Size(400, 455);
             this.Name = "Elections";
             this.Text = "Elections";
+            this.Load += new System.EventHandler(this.Elections_Load);
             this.ResumeLayout(false);
 
         }
