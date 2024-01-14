@@ -14,7 +14,9 @@ namespace Blockchain_E_Voting_System_Application
 {
     public partial class MainPage : Form
     {
-        public MainPage()
+		private int selectedElectionID;
+
+		public MainPage()
         {
             InitializeComponent();
             Load += MainPage_Load;
@@ -130,19 +132,36 @@ namespace Blockchain_E_Voting_System_Application
             // Extract the Election object from the button's Tag property
             Election selectedElection = (Election)((Button)sender).Tag;
 
-            // Open the "Elections" page and display the name of the selected election
-            Elections electionsPage = new Elections();
-            electionsPage.Show();
-        }
+			selectedElectionID = selectedElection.ElectionID;
+
+            
+            if (selectedElection.EndDate > selectedElection.StartDate)
+            {
+                Console.WriteLine("Election has ended!");
+                MessageBox.Show("Election has ended!");
+            } 
+
+            if (DateTime.Now >= selectedElection.StartDate.AddDays(1)) {
+                Elections electionsPage = new Elections(selectedElectionID);
+			    electionsPage.Show();
+            } else {
+                Candidates candidatePage = new Candidates(selectedElectionID);
+                candidatePage.Show();
+            }
+
+		}
 
 
 
         private void electionFlowLayoutPanel_Paint(object sender, PaintEventArgs e)
         {
-
-
-
+            
         }
 
-    }
+		private void btnLogout_Click(object sender, EventArgs e) {
+			this.Close();
+			LoginForm loginForm = new LoginForm();
+			loginForm.Show();
+		}
+	}
 }

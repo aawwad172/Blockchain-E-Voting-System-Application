@@ -25,6 +25,7 @@
 		private void InitializeComponent() {
 			this.electionFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
 			this.mainPageLabel = new System.Windows.Forms.Label();
+			this.btnLogout = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// electionFlowLayoutPanel
@@ -46,12 +47,25 @@
 			this.mainPageLabel.TabIndex = 1;
 			this.mainPageLabel.Text = "Main Page";
 			// 
+			// btnLogout
+			// 
+			this.btnLogout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
+			this.btnLogout.ForeColor = System.Drawing.Color.White;
+			this.btnLogout.Location = new System.Drawing.Point(185, 496);
+			this.btnLogout.Name = "btnLogout";
+			this.btnLogout.Size = new System.Drawing.Size(88, 36);
+			this.btnLogout.TabIndex = 10;
+			this.btnLogout.Text = "Log Out";
+			this.btnLogout.UseVisualStyleBackColor = false;
+			this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
+			// 
 			// MainPage
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.White;
 			this.ClientSize = new System.Drawing.Size(285, 544);
+			this.Controls.Add(this.btnLogout);
 			this.Controls.Add(this.mainPageLabel);
 			this.Controls.Add(this.electionFlowLayoutPanel);
 			this.Font = new System.Drawing.Font("Nirmala UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -71,5 +85,6 @@
 
         private System.Windows.Forms.FlowLayoutPanel electionFlowLayoutPanel;
 		private System.Windows.Forms.Label mainPageLabel;
+		private System.Windows.Forms.Button btnLogout;
 	}
 }
