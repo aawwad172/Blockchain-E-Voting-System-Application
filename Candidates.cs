@@ -123,5 +123,12 @@ namespace Blockchain_E_Voting_System_Application {
             }
         }
 
-    }
+		private void txtMajor_TextChanged(object sender, EventArgs e) {
+
+		}
+
+		private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+			this.Close();
+		}
+	}
 }

@@ -135,98 +135,123 @@ namespace Blockchain_E_Voting_System_Application
                 return;
             }
 
-            IncrementCandidateVote(candidateID);
-            CreateVoteRecord(userID,candidateID);
-            int voterID = AddVoter(userID);
-            // Todo: Retireve the information of the current user depending on the user it and then
-            // create the Voter object and then send it into the Vote Object
+			if (!electionBlockchains.ContainsKey(selectedElectionID)) {
+				InitializeBlockchainForElection(selectedElectionID);
+			}
 
-            //Voter newVoter = new Voter();
-           // Vote newVote = new Vote(userID, candidateID, DateTime.Now);
-			
-			
+			IncrementCandidateVote(candidateID);
 
-        }
+            int voteID = CreateVoteRecord(userID,candidateID);
 
-        public void IncrementCandidateVote(int candidateID)
-        {
-            string connectionString = "Data Source=E-Voting System.db;Version=3;";
-            string updateQuery = "UPDATE Candidates SET totalVotes = totalVotes + 1 WHERE candidateID = @CandidateId";
+			int voterID = AddVoter(userID);
 
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
-            {
-                conn.Open();
-                using (SQLiteCommand cmd = new SQLiteCommand(updateQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("@CandidateId", candidateID);
-                    cmd.ExecuteNonQuery();
-                }
-                conn.Close();
-            }
-        }
+			Voter voter = GetVoterDetails(voterID);
+			if (voter != null) {
+                // Creating new Vote object
+                Vote newVote = new Vote(voter, candidateID, DateTime.UtcNow);
 
-        public int CreateVoteRecord(int voterId, int candidateId)
-        {
-            string connectionString = "Data Source=E-Voting System.db;Version=3;";
-            string insertQuery = "INSERT INTO Votes (voterID, candidateID, timeStamp) VALUES (@VoterId, @CandidateId, @TimeStamp); SELECT last_insert_rowid();";
+                AddVoteToBlockchain(selectedElectionID, newVote);
 
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
-            {
-                conn.Open();
-                using (SQLiteCommand cmd = new SQLiteCommand(insertQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("@VoterId", voterId);
-                    cmd.Parameters.AddWithValue("@CandidateId", candidateId);
-                    cmd.Parameters.AddWithValue("@TimeStamp", DateTime.UtcNow); 
-                    int voteId = Convert.ToInt32(cmd.ExecuteScalar()); 
-                    return voteId;
-                }
-            }
-        }
+				// Get the latest block from the blockchain
+				Block latestBlock = electionBlockchains[selectedElectionID].CurrentBlock;
 
-        public int AddVoter(int studentID)
-        {
-            string connectionString = "Data Source=E-Voting System.db;Version=3;"; // Replace with your actual connection string
-            string insertQuery = "INSERT INTO Voters (studentID_FK) VALUES (@StudentID); SELECT last_insert_rowid();";
+				if (latestBlock != null) {
+					InsertBlockIntoDatabase(latestBlock);
+					MessageBox.Show("Your vote has been cast and recorded in the blockchain.");
+				} else {
+					MessageBox.Show("Failed to record the vote in the blockchain.");
+				}
+			} else {
+				MessageBox.Show("Failed to retrieve voter details.");
+			}
+		}
 
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
-            {
-                conn.Open();
-                using (SQLiteCommand cmd = new SQLiteCommand(insertQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("@StudentID", studentID);
-                    int voterID = Convert.ToInt32(cmd.ExecuteScalar()); // Returns the ID of the newly inserted voter
-                    return voterID;
-                }
-            }
-        }
+		public void IncrementCandidateVote(int candidateID) {
+			Console.WriteLine($"Incrementing vote count for CandidateID: {candidateID}");
 
-        public void InitializeBlockchainForElection(int electionId)
-        {
-            Blockchain blockchain = new Blockchain(); // Creates a new blockchain with a genesis block
-            electionBlockchains[electionId] = blockchain; // Store the blockchain for this specific election
-        }
+			string connectionString = "Data Source=E-Voting System.db;Version=3;";
+			string updateQuery = "UPDATE Candidates SET totalVotes = totalVotes + 1 WHERE candidateID = @CandidateId";
 
-        internal void InsertBlockIntoDatabase(Block block)
-        {
-            string connectionString = "Data Source=E-Voting System.db;Version=3;";
-            string insertQuery = "INSERT INTO Block (previousHash, voteID, hash) VALUES (@PreviousHash, @VoteID, @Hash)";
+			using (SQLiteConnection conn = new SQLiteConnection(connectionString)) {
+				conn.Open();
+				using (SQLiteCommand cmd = new SQLiteCommand(updateQuery, conn)) {
+					cmd.Parameters.AddWithValue("@CandidateId", candidateID);
+					int rowsAffected = cmd.ExecuteNonQuery();
+					Console.WriteLine($"Vote count updated. Rows affected: {rowsAffected}");
+				}
+				conn.Close();
+			}
+		}
 
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
-            {
-                conn.Open();
-                using (SQLiteCommand cmd = new SQLiteCommand(insertQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("@PreviousHash", block.PreviousHash);
-                    cmd.Parameters.AddWithValue("@VoteID", block.VoteRecord.VoteID); // Assuming VoteRecord contains the VoteID
-                    cmd.Parameters.AddWithValue("@Hash", block.Hash);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
+		public int CreateVoteRecord(int voterId, int candidateId) {
+			Console.WriteLine($"Creating vote record. VoterID: {voterId}, CandidateID: {candidateId}");
+
+			string connectionString = "Data Source=E-Voting System.db;Version=3;";
+			string insertQuery = "INSERT INTO Votes (voterID, candidateID, timeStamp) " +
+                                    "VALUES (@VoterId, @CandidateId, @TimeStamp); " +
+                                    "SELECT last_insert_rowid();";
+
+			using (SQLiteConnection conn = new SQLiteConnection(connectionString)) {
+				conn.Open();
+				using (SQLiteCommand cmd = new SQLiteCommand(insertQuery, conn)) {
+					cmd.Parameters.AddWithValue("@VoterId", voterId);
+					cmd.Parameters.AddWithValue("@CandidateId", candidateId);
+					cmd.Parameters.AddWithValue("@TimeStamp", DateTime.UtcNow);
+					int voteId = Convert.ToInt32(cmd.ExecuteScalar());
+					Console.WriteLine($"Vote record created. VoteID: {voteId}");
+
+					return voteId;
+				}
+			}
+		}
+
+		public int AddVoter(int studentID) {
+			Console.WriteLine($"Adding voter. StudentID: {studentID}");
+
+			string connectionString = "Data Source=E-Voting System.db;Version=3;";
+			string insertQuery = "INSERT INTO Voters (studentID_FK) VALUES (@StudentID); SELECT last_insert_rowid();";
+
+			using (SQLiteConnection conn = new SQLiteConnection(connectionString)) {
+				conn.Open();
+				using (SQLiteCommand cmd = new SQLiteCommand(insertQuery, conn)) {
+					cmd.Parameters.AddWithValue("@StudentID", studentID);
+					int voterID = Convert.ToInt32(cmd.ExecuteScalar());
+					Console.WriteLine($"Voter added. VoterID: {voterID}");
+
+					return voterID;
+				}
+			}
+		}
+
+		public void InitializeBlockchainForElection(int electionId) {
+			Console.WriteLine($"Initializing blockchain for ElectionID: {electionId}");
+
+			Blockchain blockchain = new Blockchain();
+			electionBlockchains[electionId] = blockchain;
+
+			Console.WriteLine("Blockchain initialized.");
+		}
+
+		internal void InsertBlockIntoDatabase(Block block) {
+			Console.WriteLine($"Inserting block into database. Block Hash: {block.Hash}");
+
+			string connectionString = "Data Source=E-Voting System.db;Version=3;";
+			string insertQuery = "INSERT INTO Blocks (previousHash, voteID, hash) VALUES (@PreviousHash, @VoteID, @Hash)";
+
+			using (SQLiteConnection conn = new SQLiteConnection(connectionString)) {
+				conn.Open();
+				using (SQLiteCommand cmd = new SQLiteCommand(insertQuery, conn)) {
+					cmd.Parameters.AddWithValue("@PreviousHash", block.PreviousHash);
+					cmd.Parameters.AddWithValue("@VoteID", block.VoteRecord.VoteID);
+					cmd.Parameters.AddWithValue("@Hash", block.Hash);
+					int rowsAffected = cmd.ExecuteNonQuery();
+					Console.WriteLine($"Block inserted into database. Rows affected: {rowsAffected}");
+				}
+			}
+		}
 
 
-        internal void AddVoteToBlockchain(int electionId, Vote vote)
+		internal void AddVoteToBlockchain(int electionId, Vote vote)
         {
             Blockchain blockchain;
 
@@ -252,5 +277,50 @@ namespace Blockchain_E_Voting_System_Application
             InsertBlockIntoDatabase(block);
         }
 
-    }
+		internal Voter GetVoterDetails(int voterID) {
+			string connectionString = "Data Source=E-Voting System.db;Version=3;";
+			string query = @"
+                            SELECT Students.name, Students.email, Students.password, Students.gpa, Students.creditHours, Students.studentMajor
+                            FROM Voters
+                            INNER JOIN Students ON Voters.studentID_FK = Students.studentID
+                            WHERE Voters.voterID = @VoterId
+                            ";
+
+			Console.WriteLine("Attempting to retrieve voter details for VoterID: " + voterID);
+
+			using (SQLiteConnection conn = new SQLiteConnection(connectionString)) {
+				try {
+					conn.Open();
+					Console.WriteLine("Database connection opened.");
+
+					using (SQLiteCommand cmd = new SQLiteCommand(query, conn)) {
+						cmd.Parameters.AddWithValue("@VoterId", voterID);
+
+						using (SQLiteDataReader reader = cmd.ExecuteReader()) {
+							if (reader.Read()) {
+								Console.WriteLine("Voter details found. Creating Voter object.");
+
+								string name = reader["name"].ToString();
+								string email = reader["email"].ToString();
+								string password = reader["password"].ToString();
+								float gpa = Convert.ToSingle(reader["gpa"]);
+								int creditHours = Convert.ToInt32(reader["creditHours"]);
+								string studentMajor = reader["studentMajor"].ToString();
+
+								Voter voter = new Voter(name, email, password, gpa, creditHours, studentMajor);
+								return voter;
+							} else {
+								Console.WriteLine("No voter found with VoterID: " + voterID);
+							}
+						}
+					}
+				} catch (Exception ex) {
+					Console.WriteLine("Error retrieving voter details: " + ex.Message);
+				}
+			}
+
+			Console.WriteLine("Returning null - Voter details not retrieved.");
+			return null; // or handle this case as appropriate
+		}
+	}
 }

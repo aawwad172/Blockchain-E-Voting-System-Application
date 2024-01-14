@@ -49,6 +49,11 @@ namespace Blockchain_E_Voting_System_Application {
 
 		private void button1_Click_1(object sender, EventArgs e) {
 
+			if (!radioButtonStudent.Checked && !radioButtonAdmin.Checked) {
+				MessageBox.Show("Please select either Student or Admin.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				return;
+			}
+
 			string emailPattern = @"^[a-zA-Z0-9._%+-]+@std\.psut\.edu\.jo$";
 			string email = txtUserName.Text.ToLower();
 			string password = txtPassword.Text;
