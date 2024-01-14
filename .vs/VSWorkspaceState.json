@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\bin\\Debug"
   ],
-  "SelectedNode": "\\LoginForm.cs",
+  "SelectedNode": "\\Blockchain E-Voting System Application.sln",
   "PreviewInSolutionExplorer": false
 }
