@@ -64,8 +64,8 @@ namespace Blockchain_E_Voting_System_Application
                             {
                                 // Attempt to parse the startDate and endDate
                                 if (DateTime.TryParse(reader["startDate"].ToString(), out DateTime startDate) &&
-                                    DateTime.TryParse(reader["endDate"].ToString(), out DateTime endDate))
-                                {
+                                    DateTime.TryParse(reader["endDate"].ToString(), out DateTime endDate)) {
+
                                     // Successfully parsed, create a new Election object
                                     Election election = new Election(startDate, endDate);
                                     election.ElectionID = Convert.ToInt32(reader["electionID"]);
@@ -73,14 +73,12 @@ namespace Blockchain_E_Voting_System_Application
 
                                   
                                 }
-                                else
-                                {
+                                else {
                                     // Parsing failed, log the failure with the election ID
                                     Console.WriteLine("Failed to parse dates for election ID " + reader["electionID"].ToString());
                                     // You can handle the parse failure here, e.g., skip this record, show a message, etc.
                                 }
                             }
-
                         }
                     }
 
@@ -145,8 +143,7 @@ namespace Blockchain_E_Voting_System_Application
             }
         }
 
-        private void ElectionButton_Click(object sender, EventArgs e)
-        {
+        private void ElectionButton_Click(object sender, EventArgs e) {
             // Extract the Election object from the button's Tag property
             Election selectedElection = (Election)((Button)sender).Tag;
 
@@ -161,8 +158,13 @@ namespace Blockchain_E_Voting_System_Application
                 return; // Exit the method
             }
 
-            // Check if the current date is the election start date or before
-            if (DateTime.Now.Date == selectedElection._startDate.Date)
+			// Check if the current date is the election start date or before or the user already nominated himself into the election!
+			Console.WriteLine("Checking if the user is already a candidate.");
+            if(IsUserACandidate(userID, selectedElectionID)) {
+				Elections electionsPage = new Elections(selectedElectionID, userID);
+				electionsPage.Show();
+			}
+			else if (DateTime.Now.Date == selectedElection._startDate.Date)
             {
                 // It's the registration period (including the start date)
                 Candidates candidatePage = new Candidates(selectedElectionID);
@@ -177,9 +179,41 @@ namespace Blockchain_E_Voting_System_Application
 
         }
 
+		private bool IsUserACandidate(int userID, int electionID) {
+			string connectionString = "Data Source=E-Voting System.db;Version=3;";
+			string query = @"SELECT COUNT(*) 
+                    FROM ElectionCandidates
+                    INNER JOIN Candidates ON ElectionCandidates.candidateID = Candidates.candidateID
+                    WHERE Candidates.studentID_FK = @UserID AND ElectionCandidates.electionID = @ElectionID";
+
+			Console.WriteLine("Connecting to DB with Connection String: " + connectionString);
+
+			using (SQLiteConnection conn = new SQLiteConnection(connectionString)) {
+				try {
+					conn.Open();
+					Console.WriteLine("Connection Opened.");
+
+					using (SQLiteCommand cmd = new SQLiteCommand(query, conn)) {
+						cmd.Parameters.AddWithValue("@UserID", userID);
+						cmd.Parameters.AddWithValue("@ElectionID", electionID);
+						Console.WriteLine($"Executing query with UserID: {userID}, ElectionID: {electionID}");
+
+						int count = Convert.ToInt32(cmd.ExecuteScalar());
+						Console.WriteLine($"Query Result Count: {count}");
+
+						return count > 0;
+					}
+				} catch (Exception ex) {
+					Console.WriteLine("Error in IsUserACandidate: " + ex.Message);
+					return false; // or handle the error as appropriate
+				}
+			}
+		}
 
 
-        private void electionFlowLayoutPanel_Paint(object sender, PaintEventArgs e)
+
+
+		private void electionFlowLayoutPanel_Paint(object sender, PaintEventArgs e)
         {
             
         }
