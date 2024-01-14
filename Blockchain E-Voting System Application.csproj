@@ -71,6 +71,12 @@
     <Compile Include="AdminDashboard.Designer.cs">
       <DependentUpon>AdminDashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Candidates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Candidates.Designer.cs">
+      <DependentUpon>Candidates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classes\Admin.cs" />
     <Compile Include="Classes\Block.cs" />
     <Compile Include="Classes\Blockchain.cs" />
@@ -101,6 +107,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AdminDashboard.resx">
       <DependentUpon>AdminDashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Candidates.resx">
+      <DependentUpon>Candidates.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Elections.resx">
       <DependentUpon>Elections.cs</DependentUpon>

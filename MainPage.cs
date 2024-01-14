@@ -15,9 +15,11 @@ namespace Blockchain_E_Voting_System_Application
     public partial class MainPage : Form
     {
 		private int selectedElectionID;
+        private int userID;
 
-		public MainPage()
+		public MainPage(int userID)
         {
+            this.userID = userID;
             InitializeComponent();
             Load += MainPage_Load;
         }
@@ -142,7 +144,7 @@ namespace Blockchain_E_Voting_System_Application
             } 
 
             if (DateTime.Now >= selectedElection.StartDate.AddDays(1)) {
-                Elections electionsPage = new Elections(selectedElectionID);
+                Elections electionsPage = new Elections(selectedElectionID, userID);
 			    electionsPage.Show();
             } else {
                 Candidates candidatePage = new Candidates(selectedElectionID);

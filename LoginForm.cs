@@ -11,11 +11,13 @@ using System.Data.SQLite;
 using System.Text.RegularExpressions;
 
 namespace Blockchain_E_Voting_System_Application {
+
 	public partial class LoginForm : Form {
 
         SQLiteConnection conn = new SQLiteConnection("Data Source=E-Voting System.db;Version=3;");
         SQLiteCommand cmd = new SQLiteCommand();
 
+		private int userID;
 
         public LoginForm() {
 			InitializeComponent();
@@ -69,9 +71,14 @@ namespace Blockchain_E_Voting_System_Application {
 				using (SQLiteConnection conn = new SQLiteConnection(connectionString)) {
 					conn.Open();
 
-					string query = radioButtonAdmin.Checked
-						? "SELECT email, password FROM Admins WHERE email = @email AND password = @password"
-						: "SELECT email, password FROM Students WHERE email = @email AND password = @password";
+					string query;
+					if (radioButtonAdmin.Checked) {
+						// For admin, just check the credentials
+						query = "SELECT 1 FROM Admins WHERE email = @email AND password = @password";
+					} else {
+						// For student, get the studentID along with the check
+						query = "SELECT studentID FROM Students WHERE email = @email AND password = @password";
+					}
 
 					using (SQLiteCommand cmd = new SQLiteCommand(query, conn)) {
 						cmd.Parameters.AddWithValue("@email", email);
@@ -79,13 +86,18 @@ namespace Blockchain_E_Voting_System_Application {
 
 						using (SQLiteDataReader reader = cmd.ExecuteReader()) {
 							if (reader.Read()) {
-								this.Hide(); // Optionally hide the login form
+								if (!radioButtonAdmin.Checked) {
+									// Set the userID if it's a student
+									userID = Convert.ToInt32(reader["studentID"]);
+								}
+
+								this.Hide();
 
 								if (radioButtonAdmin.Checked) {
 									AdminDashboard adminDashboard = new AdminDashboard();
 									adminDashboard.Show();
 								} else {
-									MainPage mainPage = new MainPage();
+									MainPage mainPage = new MainPage(userID);
 									mainPage.Show();
 								}
 							} else {
