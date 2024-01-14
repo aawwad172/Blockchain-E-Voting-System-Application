@@ -95,43 +95,36 @@ namespace Blockchain_E_Voting_System_Application
 
         private void DisplayElections(List<Election> elections)
         {
-            // Suspend layout for smooth performance
             electionFlowLayoutPanel.SuspendLayout();
 
             try
             {
-                // Clear existing controls
                 electionFlowLayoutPanel.Controls.Clear();
 
                 Console.WriteLine($"Displaying {elections.Count} elections.");
 
                 foreach (Election election in elections)
                 {
-                    // Create a button for each election
                     Button electionButton = new Button();
                     electionButton.Text = $"Election ID: {election.ElectionID}";
-                    electionButton.Tag = election;  // Attach the Election object to the button
-                    electionButton.Click += ElectionButton_Click;  // Subscribe to the Click event
+                    electionButton.Tag = election;  
+                    electionButton.Click += ElectionButton_Click;  
 
-                    // Set the size of the button
-                    electionButton.Size = new Size(150, 50);  // Adjust the width and height as needed
+                    electionButton.Size = new Size(150, 50);  
 
                     
 
-                    // Add the button to the FlowLayoutPanel
                     electionFlowLayoutPanel.Controls.Add(electionButton);
                 }
             }
             finally
             {
-                // Resume layout after adding controls
                 electionFlowLayoutPanel.ResumeLayout();
             }
         }
 
         private void ElectionButton_Click(object sender, EventArgs e)
         {
-            // Extract the Election object from the button's Tag property
             Election selectedElection = (Election)((Button)sender).Tag;
 
 			selectedElectionID = selectedElection.ElectionID;
@@ -147,7 +140,7 @@ namespace Blockchain_E_Voting_System_Application
                 Elections electionsPage = new Elections(selectedElectionID, userID);
 			    electionsPage.Show();
             } else {
-                Candidates candidatePage = new Candidates(selectedElectionID);
+                Candidates candidatePage = new Candidates(selectedElectionID, userID);
                 candidatePage.Show();
             }
 

@@ -21,14 +21,13 @@ namespace Blockchain_E_Voting_System_Application
 		public Elections(int electionID, int userID) {
 			InitializeComponent();
 
-			// Assign the selected election ID to the private variable
 			selectedElectionID = electionID;
 			this.userID = userID;
 		}
 
 		private void Elections_Load(object sender, EventArgs e) {
 			Console.WriteLine("Election ID: " +  selectedElectionID + " StudentID: " + userID);
-			string connectionString = "Data Source=E-Voting System.db;Version=3;"; // Your actual connection string
+			string connectionString = "Data Source=E-Voting System.db;Version=3;";
 
 			Console.WriteLine($"Debug: Elections_Load started. UserID: {userID}, ElectionID: {selectedElectionID}");
 
@@ -36,7 +35,6 @@ namespace Blockchain_E_Voting_System_Application
 				using (SQLiteConnection conn = new SQLiteConnection(connectionString)) {
 					conn.Open();
 
-					// First, retrieve the major of the logged-in student
 					string majorQuery = "SELECT studentMajor FROM Students WHERE studentID = @userID";
 					string studentMajor = null;
 

@@ -11,9 +11,10 @@ using System.Windows.Forms;
 namespace Blockchain_E_Voting_System_Application {
 	public partial class Candidates : Form {
 		private int selectedElectionID;
-
-		public Candidates(int selectedElectionID) {
+		private int userID;
+		public Candidates(int selectedElectionID, int userID) {
 			this.selectedElectionID = selectedElectionID;
+			this.userID = userID;
 		}
 
 		public Candidates() {
