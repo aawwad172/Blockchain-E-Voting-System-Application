@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Collections.Specialized.BitVector32;
 
 namespace Blockchain_E_Voting_System_Application
 {
@@ -61,10 +62,25 @@ namespace Blockchain_E_Voting_System_Application
                         {
                             while (reader.Read())
                             {
-                                Election election = new Election(Convert.ToDateTime(reader["startDate"]), Convert.ToDateTime(reader["endDate"]));
-                                election.ElectionID = Convert.ToInt32(reader["electionID"]);
-                                list.Add(election);
+                                // Attempt to parse the startDate and endDate
+                                if (DateTime.TryParse(reader["startDate"].ToString(), out DateTime startDate) &&
+                                    DateTime.TryParse(reader["endDate"].ToString(), out DateTime endDate))
+                                {
+                                    // Successfully parsed, create a new Election object
+                                    Election election = new Election(startDate, endDate);
+                                    election.ElectionID = Convert.ToInt32(reader["electionID"]);
+                                    list.Add(election);
+
+                                  
+                                }
+                                else
+                                {
+                                    // Parsing failed, log the failure with the election ID
+                                    Console.WriteLine("Failed to parse dates for election ID " + reader["electionID"].ToString());
+                                    // You can handle the parse failure here, e.g., skip this record, show a message, etc.
+                                }
                             }
+
                         }
                     }
 
@@ -134,24 +150,32 @@ namespace Blockchain_E_Voting_System_Application
             // Extract the Election object from the button's Tag property
             Election selectedElection = (Election)((Button)sender).Tag;
 
-			selectedElectionID = selectedElection.ElectionID;
+            selectedElectionID = selectedElection.ElectionID;
 
-            
-            if (selectedElection.EndDate > selectedElection.StartDate)
+            // Check if the election has already ended
+            Console.WriteLine("startDate: " + selectedElection._startDate + " endDate: " + selectedElection._endDate);
+
+            if (selectedElection._startDate >= selectedElection._endDate)
             {
-                Console.WriteLine("Election has ended!");
                 MessageBox.Show("Election has ended!");
-            } 
+                return; // Exit the method
+            }
 
-            if (DateTime.Now >= selectedElection.StartDate.AddDays(1)) {
-                Elections electionsPage = new Elections(selectedElectionID, userID);
-			    electionsPage.Show();
-            } else {
+            // Check if the current date is the election start date or before
+            if (DateTime.Now.Date == selectedElection._startDate.Date)
+            {
+                // It's the registration period (including the start date)
                 Candidates candidatePage = new Candidates(selectedElectionID);
                 candidatePage.Show();
             }
+            else
+            {
+                // It's past the registration period, begin voting
+                Elections electionsPage = new Elections(selectedElectionID, userID);
+                electionsPage.Show();
+            }
 
-		}
+        }
 
 
 
