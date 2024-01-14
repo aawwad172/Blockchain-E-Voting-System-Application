@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 
 namespace Blockchain_E_Voting_System_Application.Classes {
 	internal class Vote {
@@ -10,7 +11,7 @@ namespace Blockchain_E_Voting_System_Application.Classes {
 		private DateTime _timestamp;
 
 		// Constructor
-		public Vote(int voterID, Voter voter, int candidateID, DateTime timestamp) {
+		public Vote(Voter voter, int candidateID, DateTime timestamp) {
 			_voter = voter;
 			_candidateID = candidateID;
 			_timestamp = timestamp;
