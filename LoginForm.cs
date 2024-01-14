@@ -97,9 +97,6 @@ namespace Blockchain_E_Voting_System_Application {
 			} catch (Exception ex) {
 				MessageBox.Show("Error: " + ex.Message);
 			}
-
-
-
 		}
 
 		private void txtPassword_TextChanged(object sender, EventArgs e) {

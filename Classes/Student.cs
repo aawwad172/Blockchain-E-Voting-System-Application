@@ -2,7 +2,6 @@
 
 namespace Blockchain_E_Voting_System_Application.Classes {
 	internal class Student {
-		private static int nextStudentID = 1;
 
 		// Attribute
 		private int _studentID;
@@ -15,7 +14,6 @@ namespace Blockchain_E_Voting_System_Application.Classes {
 
 		// Constructor
 		public Student(string name, string email, string password, float gpa, int creditHours, string studentMajor) {
-			this.StudentID = nextStudentID++;
 			this.Name = name;
 			this.Email = email;
 			this.GPA = gpa;
@@ -29,7 +27,7 @@ namespace Blockchain_E_Voting_System_Application.Classes {
 		// Read-only property for _studentID
 		public int StudentID {
 			get { return _studentID; }
-			private set { _studentID = value; }
+			set { _studentID = value; }
 		}
 
 		public string Name {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Blockchain_E_Voting_System_Application.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,9 @@ namespace Blockchain_E_Voting_System_Application
 {
     public partial class Elections : Form
     {
-        public Elections()
+        private void Elections_Load(object sender, EventArgs e)
         {
-            InitializeComponent();
+
         }
     }
 }

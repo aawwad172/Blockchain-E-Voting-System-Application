@@ -1,12 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Classes"
+    ""
   ],
-<<<<<<< HEAD
-  "SelectedNode": "\\LoginForm.cs",
-=======
-  "SelectedNode": "\\Blockchain E-Voting System Application.sln",
->>>>>>> master
+  "SelectedNode": "\\MainPage.cs",
   "PreviewInSolutionExplorer": false
 }

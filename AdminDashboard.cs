@@ -35,15 +35,14 @@ namespace Blockchain_E_Voting_System_Application {
             {
                 conn.Open();
 
-                string query = "INSERT INTO Elections (electionID, startDate, endDate) VALUES (@electionID, @startDate, @endDate)";
+                string query = "INSERT INTO Elections (startDate, endDate) VALUES (@startDate, @endDate)";
 
                 using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@electionID", newElection.ElectionID);
                     cmd.Parameters.AddWithValue("@startDate", newElection._startDate);
                     cmd.Parameters.AddWithValue("@endDate", newElection._endDate);
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("Election Added Succefully!");
+                    MessageBox.Show($"Election Added Successfully!");
                 }
             }
 
@@ -84,6 +83,7 @@ namespace Blockchain_E_Voting_System_Application {
                 {
                     MessageBox.Show("Invalid Election ID format.");
                 }
+                txtElectionID.Clear();
                 conn.Close();
             }
 
@@ -121,5 +121,9 @@ namespace Blockchain_E_Voting_System_Application {
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
         }
-    }
+
+		private void label4_Click(object sender, EventArgs e) {
+
+		}
+	}
 }
