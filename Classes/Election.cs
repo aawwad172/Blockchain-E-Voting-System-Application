@@ -41,12 +41,5 @@ namespace Blockchain_E_Voting_System_Application.Classes {
 				return null;
 			}
 		}
-
-		// Method to declare the results of the election
-		public void DeclareResults() {
-			// Implementation to calculate and announce the results
-		}
 	}
-
-
 }

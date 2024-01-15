@@ -33,6 +33,9 @@
 			this.txtElectionID = new System.Windows.Forms.TextBox();
 			this.btnLogout = new System.Windows.Forms.Button();
 			this.label4 = new System.Windows.Forms.Label();
+			this.textResultElectionID = new System.Windows.Forms.TextBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.button1 = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// btnAddElection
@@ -52,7 +55,7 @@
 			this.dateTimePickerStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
 			this.dateTimePickerStartDate.Location = new System.Drawing.Point(132, 118);
 			this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
-			this.dateTimePickerStartDate.Size = new System.Drawing.Size(122, 26);
+			this.dateTimePickerStartDate.Size = new System.Drawing.Size(122, 30);
 			this.dateTimePickerStartDate.TabIndex = 1;
 			this.dateTimePickerStartDate.ValueChanged += new System.EventHandler(this.dateTimePickerStartDate_ValueChanged);
 			// 
@@ -62,7 +65,7 @@
 			this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(164)))), ((int)(((byte)(165)))), ((int)(((byte)(169)))));
 			this.label1.Location = new System.Drawing.Point(36, 124);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(76, 19);
+			this.label1.Size = new System.Drawing.Size(92, 23);
 			this.label1.TabIndex = 2;
 			this.label1.Text = "Start Date";
 			this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -73,7 +76,7 @@
 			this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(164)))), ((int)(((byte)(165)))), ((int)(((byte)(169)))));
 			this.label2.Location = new System.Drawing.Point(36, 156);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(68, 19);
+			this.label2.Size = new System.Drawing.Size(83, 23);
 			this.label2.TabIndex = 3;
 			this.label2.Text = "End Date";
 			this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -83,7 +86,7 @@
 			this.dateTimePickerEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
 			this.dateTimePickerEndDate.Location = new System.Drawing.Point(132, 150);
 			this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
-			this.dateTimePickerEndDate.Size = new System.Drawing.Size(122, 26);
+			this.dateTimePickerEndDate.Size = new System.Drawing.Size(122, 30);
 			this.dateTimePickerEndDate.TabIndex = 4;
 			this.dateTimePickerEndDate.ValueChanged += new System.EventHandler(this.dateTimePickerEndDate_ValueChanged);
 			// 
@@ -91,7 +94,7 @@
 			// 
 			this.btnRemoveEleciton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
 			this.btnRemoveEleciton.ForeColor = System.Drawing.Color.White;
-			this.btnRemoveEleciton.Location = new System.Drawing.Point(33, 376);
+			this.btnRemoveEleciton.Location = new System.Drawing.Point(40, 328);
 			this.btnRemoveEleciton.Name = "btnRemoveEleciton";
 			this.btnRemoveEleciton.Size = new System.Drawing.Size(214, 36);
 			this.btnRemoveEleciton.TabIndex = 5;
@@ -103,18 +106,18 @@
 			// 
 			this.label3.AutoSize = true;
 			this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(164)))), ((int)(((byte)(165)))), ((int)(((byte)(169)))));
-			this.label3.Location = new System.Drawing.Point(36, 322);
+			this.label3.Location = new System.Drawing.Point(43, 274);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(79, 19);
+			this.label3.Size = new System.Drawing.Size(96, 23);
 			this.label3.TabIndex = 7;
 			this.label3.Text = "Election ID";
 			this.label3.Click += new System.EventHandler(this.label3_Click);
 			// 
 			// txtElectionID
 			// 
-			this.txtElectionID.Location = new System.Drawing.Point(132, 315);
+			this.txtElectionID.Location = new System.Drawing.Point(139, 267);
 			this.txtElectionID.Name = "txtElectionID";
-			this.txtElectionID.Size = new System.Drawing.Size(115, 26);
+			this.txtElectionID.Size = new System.Drawing.Size(115, 30);
 			this.txtElectionID.TabIndex = 8;
 			this.txtElectionID.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
 			// 
@@ -122,7 +125,7 @@
 			// 
 			this.btnLogout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
 			this.btnLogout.ForeColor = System.Drawing.Color.White;
-			this.btnLogout.Location = new System.Drawing.Point(185, 496);
+			this.btnLogout.Location = new System.Drawing.Point(185, 529);
 			this.btnLogout.Name = "btnLogout";
 			this.btnLogout.Size = new System.Drawing.Size(88, 36);
 			this.btnLogout.TabIndex = 9;
@@ -137,16 +140,48 @@
 			this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
 			this.label4.Location = new System.Drawing.Point(12, 57);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(262, 27);
+			this.label4.Size = new System.Drawing.Size(317, 33);
 			this.label4.TabIndex = 10;
 			this.label4.Text = "Elections Dashboard";
 			// 
+			// textResultElectionID
+			// 
+			this.textResultElectionID.Location = new System.Drawing.Point(138, 394);
+			this.textResultElectionID.Name = "textResultElectionID";
+			this.textResultElectionID.Size = new System.Drawing.Size(115, 30);
+			this.textResultElectionID.TabIndex = 12;
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(164)))), ((int)(((byte)(165)))), ((int)(((byte)(169)))));
+			this.label5.Location = new System.Drawing.Point(36, 401);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(96, 23);
+			this.label5.TabIndex = 11;
+			this.label5.Text = "Election ID";
+			// 
+			// button1
+			// 
+			this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(86)))), ((int)(((byte)(174)))));
+			this.button1.ForeColor = System.Drawing.Color.White;
+			this.button1.Location = new System.Drawing.Point(40, 454);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(214, 36);
+			this.button1.TabIndex = 13;
+			this.button1.Text = "Publish Results";
+			this.button1.UseVisualStyleBackColor = false;
+			this.button1.Click += new System.EventHandler(this.button1_Click_1);
+			// 
 			// AdminDashboard
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.White;
-			this.ClientSize = new System.Drawing.Size(285, 544);
+			this.ClientSize = new System.Drawing.Size(285, 577);
+			this.Controls.Add(this.button1);
+			this.Controls.Add(this.textResultElectionID);
+			this.Controls.Add(this.label5);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.btnLogout);
 			this.Controls.Add(this.txtElectionID);
@@ -181,5 +216,8 @@
         private System.Windows.Forms.TextBox txtElectionID;
         private System.Windows.Forms.Button btnLogout;
 		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.TextBox textResultElectionID;
+		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Button button1;
 	}
 }

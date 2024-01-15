@@ -77,3 +77,4 @@ E:\E-Voting System\obj\Debug\Blockchain E-Voting System Application.pdb
 I:\Coding\C#\E-Voting System\Blockchain-E-Voting-System-Application\obj\Debug\Blockchain_E_Voting_System_Application.AdminDashboard.resources
 I:\Coding\C#\E-Voting System\Blockchain-E-Voting-System-Application\obj\Debug\Blockchain_E_Voting_System_Application.Candidates.resources
 E:\E-Voting System\obj\Debug\Blockchain_E_Voting_System_Application.Candidates.resources
+I:\Coding\C#\E-Voting System\Blockchain-E-Voting-System-Application\obj\Debug\Blockchain_E_Voting_System_Application.ResultForm.resources

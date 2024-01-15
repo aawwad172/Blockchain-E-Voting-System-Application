@@ -125,5 +125,76 @@ namespace Blockchain_E_Voting_System_Application {
 		private void label4_Click(object sender, EventArgs e) {
 
 		}
+
+		private void button1_Click_1(object sender, EventArgs e) {
+			var results = new List<Tuple<string, int, string>>(); // major, candidateID, candidateName
+
+			Console.WriteLine("Starting to process election results...");
+
+			// Parse the election ID from the text box
+			if (!int.TryParse(textResultElectionID.Text, out int electionID)) {
+				MessageBox.Show("Invalid Election ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				Console.WriteLine("Error: Invalid Election ID input.");
+				return;
+			}
+
+			Console.WriteLine($"Election ID: {electionID}");
+
+			string connectionString = "Data Source=E-Voting System.db;Version=3;";
+			string query = @"
+                            SELECT 
+                                Students.studentMajor, 
+                                ec.candidateID, 
+                                Students.name,
+                                SUM(Candidates.totalVotes) as TotalVotes
+                            FROM ElectionCandidates ec
+                            INNER JOIN Candidates ON ec.candidateID = Candidates.candidateID
+                            INNER JOIN Students ON Candidates.studentID_FK = Students.studentID
+                            WHERE ec.electionID = @ElectionID
+                            GROUP BY Students.studentMajor, ec.candidateID
+                            ORDER BY Students.studentMajor, TotalVotes DESC";
+
+			try {
+				using (SQLiteConnection conn = new SQLiteConnection(connectionString)) {
+					conn.Open();
+					Console.WriteLine("Database connection opened successfully.");
+
+					using (SQLiteCommand cmd = new SQLiteCommand(query, conn)) {
+						cmd.Parameters.AddWithValue("@ElectionID", electionID);
+
+						using (SQLiteDataReader reader = cmd.ExecuteReader()) {
+							if (!reader.HasRows) {
+								Console.WriteLine("No results found for the election.");
+								MessageBox.Show("No results found.", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+								return;
+							}
+
+							string currentMajor = "";
+							while (reader.Read()) {
+								string major = reader["studentMajor"].ToString();
+								if (major != currentMajor) {
+									int candidateID = Convert.ToInt32(reader["candidateID"]);
+									string candidateName = reader["name"].ToString();
+									Console.WriteLine($"Major: {major}, Winner Candidate ID: {candidateID}, Name: {candidateName}");
+									results.Add(new Tuple<string, int, string>(major, candidateID, candidateName));
+									currentMajor = major;
+								}
+							}
+						}
+					}
+					OpenResultsForm(results);
+				}
+			} catch (Exception ex) {
+				MessageBox.Show("An error occurred while processing results: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				Console.WriteLine($"Error while processing results: {ex.Message}");
+			}
+
+			Console.WriteLine("Election results processing completed.");
+		}
+
+		private void OpenResultsForm(List<Tuple<string, int, string>> results) {
+			ResultForm resultsForm = new ResultForm(results);
+			resultsForm.Show();
+		}
 	}
 }
